@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "locacao")
@@ -21,7 +23,17 @@ public class Locacao {
     private BigDecimal valorAluguel;
     private String obs;
 
+    @ManyToOne @JoinColumn(name = "id_imovel")
+    private Imovel imovel;
+
+    @ManyToOne @JoinColumn(name = "id_inquilino")
+    private Cliente cliente;
+
+    @OneToMany(mappedBy = "locacao")
+    private List<Aluguel> alugueis;
+
     public Locacao() {
+        this.alugueis = new ArrayList<>();
     }
 
     public Integer getId() {

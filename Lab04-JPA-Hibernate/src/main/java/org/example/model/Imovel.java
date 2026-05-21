@@ -3,6 +3,8 @@ package org.example.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "imoveis")
@@ -20,8 +22,20 @@ public class Imovel {
     private BigDecimal valorAluguelSugerido;
     private String obs;
 
+    @ManyToOne
+    @JoinColumn(name = "tipo_imovel_id")
+    private TipoImovel tipoImovel;
+
+    @ManyToOne
+    @JoinColumn(name = "proprietario_id", nullable = false)
+    private Cliente proprietario;
+
+    @OneToMany(mappedBy = "imovel")
+    private List<Locacao> historicoLocacoes;
+
 
     public Imovel() {
+        this.historicoLocacoes = new ArrayList<>();
     }
 
     public Integer getId() {

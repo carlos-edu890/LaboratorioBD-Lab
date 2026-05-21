@@ -3,7 +3,9 @@ package org.example.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "clientes")
@@ -19,7 +21,15 @@ public class Cliente {
     private String email;
     private LocalDate dataNascimento;
 
+    @OneToMany(mappedBy = "proprietario")
+    private List<Imovel> imoveisProprietario;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Locacao> locacoesComoInquilino;
+
     public Cliente() {
+        this.imoveisProprietario = new ArrayList<>();
+        this.locacoesComoInquilino = new ArrayList<>();
     }
 
     public Integer getId() {
