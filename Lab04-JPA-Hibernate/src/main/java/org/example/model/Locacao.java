@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "locacao")
 public class Locacao {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Boolean ativo;

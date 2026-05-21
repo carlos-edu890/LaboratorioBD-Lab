@@ -4,8 +4,14 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
              https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
 
-    <persistence-unit name="Lab04JpaHibernate">
+    <persistence-unit name="Lab04JpaHibernate" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>org.example.model.Cliente</class>
+        <class>org.example.model.Imovel</class>
+        <class>org.example.model.Locacao</class>
+        <class>org.example.model.Aluguel</class>
+        <class>org.example.model.TipoImovel</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver"

@@ -27,7 +27,7 @@ public class Imovel {
     private TipoImovel tipoImovel;
 
     @ManyToOne
-    @JoinColumn(name = "proprietario_id", nullable = false)
+    @JoinColumn(name = "proprietario_id")
     private Cliente proprietario;
 
     @OneToMany(mappedBy = "imovel")

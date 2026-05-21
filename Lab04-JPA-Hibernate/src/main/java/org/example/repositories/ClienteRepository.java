@@ -27,6 +27,7 @@ public class ClienteRepository {
     public Cliente getCliente(String emailOrCpf) {
         return this.manager.createQuery("SELECT c FROM Cliente c WHERE c.email = :emailOrCpf OR c.cpf = :emailOrCpf", Cliente.class)
                 .setParameter("emailOrCpf", emailOrCpf)
+                .setMaxResults(1)
                 .getSingleResult();
     }
 }

@@ -4,14 +4,13 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "clientes")
 public class Cliente {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String nome;
@@ -28,6 +27,17 @@ public class Cliente {
     private List<Locacao> locacoesComoInquilino;
 
     public Cliente() {
+        this.imoveisProprietario = new ArrayList<>();
+        this.locacoesComoInquilino = new ArrayList<>();
+    }
+
+    public Cliente(String nome, String cpf, String telefone1, String telefone2, String email, LocalDate dataNascimento) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone1 = telefone1;
+        this.telefone2 = telefone2;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
         this.imoveisProprietario = new ArrayList<>();
         this.locacoesComoInquilino = new ArrayList<>();
     }
