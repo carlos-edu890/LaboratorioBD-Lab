@@ -21,25 +21,18 @@ public class Cliente {
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "proprietario")
-    private List<Imovel> imoveisProprietario;
+    private List<Imovel> imoveisProprietario = new ArrayList<>();
 
     @OneToMany(mappedBy = "cliente")
-    private List<Locacao> locacoesComoInquilino;
+    private List<Locacao> locacoesComoInquilino = new ArrayList<>();
 
     public Cliente() {
-        this.imoveisProprietario = new ArrayList<>();
-        this.locacoesComoInquilino = new ArrayList<>();
     }
 
-    public Cliente(String nome, String cpf, String telefone1, String telefone2, String email, LocalDate dataNascimento) {
+    public Cliente(String nome, String cpf, String email) {
         this.nome = nome;
         this.cpf = cpf;
-        this.telefone1 = telefone1;
-        this.telefone2 = telefone2;
         this.email = email;
-        this.dataNascimento = dataNascimento;
-        this.imoveisProprietario = new ArrayList<>();
-        this.locacoesComoInquilino = new ArrayList<>();
     }
 
     public Integer getId() {

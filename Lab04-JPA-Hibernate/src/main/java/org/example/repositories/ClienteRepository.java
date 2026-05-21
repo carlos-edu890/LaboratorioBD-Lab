@@ -18,16 +18,16 @@ public class ClienteRepository {
         this.manager.getTransaction().commit();
     }
 
-    public void update(Cliente cliente) {
+    public Cliente update(Cliente cliente) {
         this.manager.getTransaction().begin();
-        this.manager.merge(cliente);
+        Cliente c = this.manager.merge(cliente);
         this.manager.getTransaction().commit();
+        return c;
     }
 
     public Cliente getCliente(String emailOrCpf) {
         return this.manager.createQuery("SELECT c FROM Cliente c WHERE c.email = :emailOrCpf OR c.cpf = :emailOrCpf", Cliente.class)
                 .setParameter("emailOrCpf", emailOrCpf)
-                .setMaxResults(1)
                 .getSingleResult();
     }
 }

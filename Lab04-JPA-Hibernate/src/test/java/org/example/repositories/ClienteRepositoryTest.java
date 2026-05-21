@@ -6,6 +6,8 @@ import org.example.util.JpaUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClienteRepositoryTest {
@@ -14,62 +16,65 @@ class ClienteRepositoryTest {
     void testarSeObjetoFoiPersistido() {
         EntityManager manager = JpaUtil.getEntityManager();
 
-        Cliente c = new Cliente();
-        c.setNome("Carlos");
-        c.setCpf("43254533");
-        c.setEmail("ca@email.com");
+        List<Cliente> clientes = List.of(
+                new Cliente("Ana Silva", "123.456.789-00", "ana.silva@email.com"),
+                new Cliente("Bruno Santos", "234.567.890-11", "bruno@email.com"),
+                new Cliente("Carlos Oliveira", "345.678.901-22", "carlos.oliveira@email.com"),
+                new Cliente("Daniela Rodrigues", "456.789.012-33", "daniela.rodrigues@email.com"),
+                new Cliente("Eduardo Costa", "567.890.123-44", "eduardo.costa@email.com"),
+                new Cliente("Fernanda Almeida", "678.901.234-55", "fernanda.almeida@email.com"),
+                new Cliente("Gabriel Souza", "789.012.345-66", "gabriel.souza@email.com"),
+                new Cliente("Juliana Lima", "890.123.456-77", "juliana.lima@email.com"),
+                new Cliente("Lucas Pereira", "901.234.567-88", "lucas.pereira@email.com"),
+                new Cliente("Mariana Ribeiro", "012.345.678-99", "mariana.ribeiro@email.com")
+        );
 
         ClienteRepository repository = new ClienteRepository();
-        repository.save(c);
 
-        Cliente c1 = manager.find(Cliente.class, c.getId());
+        for (Cliente c: clientes) {
+            repository.save(c);
+        }
+
+        Cliente c1 = manager.find(Cliente.class, 1L);
 
         manager.close();
 
         assertNotNull(c1, "Cliente deveria ter sido salvo no banco");
-        assertEquals("Carlos", c1.getNome());
-        assertEquals("43254533", c1.getCpf());
-        assertEquals("ca@email.com", c1.getEmail());
+        assertEquals("Ana Silva", c1.getNome());
+        assertEquals("123.456.789-00", c1.getCpf());
+        assertEquals("ana.silva@email.com", c1.getEmail());
 
         JpaUtil.close();
     }
 
     @Test
     void testarSeObjetoFoiAtualizado() {
-        Cliente c = new Cliente();
-        c.setNome("Robert");
-        c.setCpf("43254533");
-        c.setEmail("ca@email.com");
-
         ClienteRepository repository = new ClienteRepository();
-        repository.save(c);
-
         EntityManager manager = JpaUtil.getEntityManager();
 
-        Cliente c1 = manager.find(Cliente.class, c.getId());
-        c1.setNome("Joao");
-        repository.update(c1);
+        Cliente c = manager.find(Cliente.class, 2L);
 
-        assertEquals("Joao", manager.find(Cliente.class, c.getId()).getNome());
+        manager.detach(c);
+
+        c.setNome("Bruno");
+
+        Cliente c1 = repository.update(c);
+
+        assertEquals("Bruno", c1.getNome());
+
         manager.close();
         JpaUtil.close();
     }
 
     @Test
-    void BuscarClientePorEmal() {
-        Cliente c = new Cliente();
-        c.setNome("Robert");
-        c.setCpf("43254533");
-        c.setEmail("ca@email.com");
-
+    void BuscarClientePorEmail() {
         ClienteRepository repository = new ClienteRepository();
-        repository.save(c);
 
         EntityManager manager = JpaUtil.getEntityManager();
 
-        Cliente c1 = repository.getCliente("ca@email.com");
+        Cliente c = repository.getCliente("carlos.oliveira@email.com");
 
-        assertNotNull(c1, "Cliente deveria ter sido encontrado no banco");
+        assertNotNull(c, "Cliente deveria ter sido encontrado no banco");
 
         manager.close();
         JpaUtil.close();
@@ -77,19 +82,13 @@ class ClienteRepositoryTest {
 
     @Test
     void BuscarClientePorCpf() {
-        Cliente c = new Cliente();
-        c.setNome("Jobert");
-        c.setCpf("43254535");
-        c.setEmail("jo@email.com");
-
         ClienteRepository repository = new ClienteRepository();
-        repository.save(c);
 
         EntityManager manager = JpaUtil.getEntityManager();
 
-        Cliente c1 = repository.getCliente("43254535");
+        Cliente c = repository.getCliente("345.678.901-22");
 
-        assertNotNull(c1, "Cliente deveria ter sido encontrado no banco");
+        assertNotNull(c, "Cliente deveria ter sido encontrado no banco");
 
         manager.close();
         JpaUtil.close();
