@@ -17,7 +17,7 @@ public class Aluguel {
     private BigDecimal valorPago;
     private String obs;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "id_locacao")
     private Locacao locacao;
 
