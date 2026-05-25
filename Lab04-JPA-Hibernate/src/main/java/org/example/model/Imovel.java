@@ -31,11 +31,23 @@ public class Imovel {
     private Cliente proprietario;
 
     @OneToMany(mappedBy = "imovel")
-    private List<Locacao> historicoLocacoes;
+    private List<Locacao> historicoLocacoes = new ArrayList<>();;
 
 
     public Imovel() {
-        this.historicoLocacoes = new ArrayList<>();
+    }
+
+    public Imovel(String endereco, String cep, Integer domitorios, Integer banheiros, Integer suites, Integer metragem, BigDecimal valorAluguelSugerido, String obs, TipoImovel tipoImovel, Cliente proprietario) {
+        this.endereco = endereco;
+        this.cep = cep;
+        this.domitorios = domitorios;
+        this.banheiros = banheiros;
+        this.suites = suites;
+        this.metragem = metragem;
+        this.valorAluguelSugerido = valorAluguelSugerido;
+        this.obs = obs;
+        this.tipoImovel = tipoImovel;
+        this.proprietario = proprietario;
     }
 
     public Integer getId() {
