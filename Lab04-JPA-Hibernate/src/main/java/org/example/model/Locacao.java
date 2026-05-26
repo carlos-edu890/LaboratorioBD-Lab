@@ -13,7 +13,7 @@ import java.util.List;
 public class Locacao {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private Boolean ativo;
     private LocalDate dataInicio;
@@ -30,18 +30,34 @@ public class Locacao {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "locacao")
-    private List<Aluguel> alugueis;
+    private List<Aluguel> alugueis = new ArrayList<>();;
 
     public Locacao() {
-        this.alugueis = new ArrayList<>();
+
     }
 
-    public Integer getId() {
+    public Locacao(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Imovel getImovel() {
+        return imovel;
+    }
+
+    public void setImovel(Imovel imovel) {
+        this.imovel = imovel;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Boolean getAtivo() {

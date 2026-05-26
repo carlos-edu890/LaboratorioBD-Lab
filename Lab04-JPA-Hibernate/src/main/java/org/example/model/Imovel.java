@@ -10,8 +10,8 @@ import java.util.List;
 @Table(name = "imoveis")
 public class Imovel {
 
-    @Id @GeneratedValue
-    private Integer id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String endereco;
     private String cep;
@@ -31,19 +31,26 @@ public class Imovel {
     private Cliente proprietario;
 
     @OneToMany(mappedBy = "imovel")
-    private List<Locacao> historicoLocacoes;
+    private List<Locacao> historicoLocacoes = new ArrayList<>();;
 
 
     public Imovel() {
-        this.historicoLocacoes = new ArrayList<>();
+
     }
 
-    public Integer getId() {
+    public Imovel(String cep, BigDecimal valorAluguelSugerido) {
+        this.cep = cep;
+        this.valorAluguelSugerido = valorAluguelSugerido;
+    }
+
+    public Imovel(String cep, BigDecimal valorAluguelSugerido, TipoImovel tipoImovel) {
+        this.cep = cep;
+        this.valorAluguelSugerido = valorAluguelSugerido;
+        this.tipoImovel = tipoImovel;
+    }
+
+    public Long getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getEndereco() {
@@ -109,5 +116,29 @@ public class Imovel {
 
     public void setObs(String obs) {
         this.obs = obs;
+    }
+
+    public TipoImovel getTipoImovel() {
+        return tipoImovel;
+    }
+
+    public void setTipoImovel(TipoImovel tipoImovel) {
+        this.tipoImovel = tipoImovel;
+    }
+
+    public Cliente getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(Cliente proprietario) {
+        this.proprietario = proprietario;
+    }
+
+    public List<Locacao> getHistoricoLocacoes() {
+        return historicoLocacoes;
+    }
+
+    public void setHistoricoLocacoes(Locacao locacao) {
+        this.historicoLocacoes.add(locacao);
     }
 }

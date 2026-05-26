@@ -14,6 +14,10 @@ public class TipoImovel {
     public TipoImovel() {
     }
 
+    public TipoImovel(String descricao) {
+        this.descricao = descricao;
+    }
+
     public Long getId() {
         return id;
     }
