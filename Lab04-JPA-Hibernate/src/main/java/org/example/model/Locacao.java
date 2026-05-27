@@ -30,7 +30,7 @@ public class Locacao {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "locacao")
-    private List<Aluguel> alugueis = new ArrayList<>();;
+    private List<Aluguel> alugueis = new ArrayList<>();
 
     public Locacao() {
 
@@ -42,6 +42,15 @@ public class Locacao {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Aluguel> getAlugueis() {
+        return alugueis;
+    }
+
+    public void adicionarAluguel(Aluguel aluguel) {
+        this.alugueis.add(aluguel);
+        aluguel.setLocacao(this);
     }
 
     public Imovel getImovel() {
