@@ -10,8 +10,8 @@ import java.util.List;
 @Table(name = "imoveis")
 public class Imovel {
 
-    @Id @GeneratedValue
-    private Integer id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String endereco;
     private String cep;
@@ -35,6 +35,7 @@ public class Imovel {
 
 
     public Imovel() {
+
     }
 
     public Imovel(String endereco, String cep, Integer domitorios, Integer banheiros, Integer suites, Integer metragem, BigDecimal valorAluguelSugerido, String obs, TipoImovel tipoImovel, Cliente proprietario) {
@@ -50,12 +51,19 @@ public class Imovel {
         this.proprietario = proprietario;
     }
 
-    public Integer getId() {
-        return id;
+    public Imovel(String cep, BigDecimal valorAluguelSugerido) {
+        this.cep = cep;
+        this.valorAluguelSugerido = valorAluguelSugerido;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Imovel(String cep, BigDecimal valorAluguelSugerido, TipoImovel tipoImovel) {
+        this.cep = cep;
+        this.valorAluguelSugerido = valorAluguelSugerido;
+        this.tipoImovel = tipoImovel;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getEndereco() {
@@ -121,5 +129,29 @@ public class Imovel {
 
     public void setObs(String obs) {
         this.obs = obs;
+    }
+
+    public TipoImovel getTipoImovel() {
+        return tipoImovel;
+    }
+
+    public void setTipoImovel(TipoImovel tipoImovel) {
+        this.tipoImovel = tipoImovel;
+    }
+
+    public Cliente getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(Cliente proprietario) {
+        this.proprietario = proprietario;
+    }
+
+    public List<Locacao> getHistoricoLocacoes() {
+        return historicoLocacoes;
+    }
+
+    public void setHistoricoLocacoes(Locacao locacao) {
+        this.historicoLocacoes.add(locacao);
     }
 }

@@ -3,6 +3,7 @@ package org.example.repositories;
 import jakarta.persistence.EntityManager;
 import org.example.model.Aluguel;
 import org.example.util.JpaUtil;
+
 import java.util.List;
 
 public class AluguelRepository {

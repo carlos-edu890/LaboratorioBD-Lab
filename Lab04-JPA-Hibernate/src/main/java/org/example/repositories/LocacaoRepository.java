@@ -3,6 +3,7 @@ package org.example.repositories;
 import jakarta.persistence.EntityManager;
 import org.example.model.Locacao;
 import org.example.util.JpaUtil;
+
 import java.util.List;
 
 public class LocacaoRepository {
@@ -37,6 +38,7 @@ public class LocacaoRepository {
                 .setParameter("inquilinoId", inquilinoId)
                 .getResultList();
     }
+}
 
     public void close() {
         if (this.manager.isOpen()) {

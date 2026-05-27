@@ -3,6 +3,7 @@ package org.example.repositories;
 import jakarta.persistence.EntityManager;
 import org.example.model.Imovel;
 import org.example.util.JpaUtil;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class ImovelRepository {
                 .setParameter("proprietarioId", proprietarioId)
                 .getResultList();
     }
+}
 
     public void close() {
         if (this.manager.isOpen()) {

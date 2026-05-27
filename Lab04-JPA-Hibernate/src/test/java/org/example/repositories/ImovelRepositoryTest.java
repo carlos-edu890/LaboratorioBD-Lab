@@ -5,86 +5,164 @@ import org.example.model.Cliente;
 import org.example.model.Imovel;
 import org.example.model.TipoImovel;
 import org.example.util.JpaUtil;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ImovelRepositoryTest {
 
+    private ImovelRepository imovelRepository = new ImovelRepository();
+
     @Test
-    void testarSalvarEListarTodosOsImoveis() {
+    void objetoFoiAdicionado() {
         EntityManager manager = JpaUtil.getEntityManager();
-        ImovelRepository repository = new ImovelRepository();
 
-        // Buscando ou criando dependências necessárias para salvar um imóvel
-        Cliente proprietario = manager.find(Cliente.class, 1L);
-        TipoImovel tipo = manager.find(TipoImovel.class, 1L);
+        List<TipoImovel> tipoImovels = List.of(
+                new TipoImovel("Apartamento"),
+                new TipoImovel("Casa"),
+                new TipoImovel("Cobertura"),
+                new TipoImovel("Kitnet"),
+                new TipoImovel("Duplex"),
+                new TipoImovel("Triplex"),
+                new TipoImovel("Studio"),
+                new TipoImovel("Sobrado"),
+                new TipoImovel("Flat"),
+                new TipoImovel("Loft"));
 
-        Imovel imovel = new Imovel();
-        imovel.setEndereco("Rua das Flores, 123");
-        imovel.setCep("65000-000");
-        imovel.setDormitorios(2);
-        imovel.setBanheiros(2);
-        imovel.setSuites(1);
-        imovel.setMetragem(75);
-        imovel.setValorAluguelSugerido(new BigDecimal("1500.00"));
-        imovel.setProprietario(proprietario);
-        imovel.setTipoImovel(tipo);
+        for (TipoImovel tipo : tipoImovels) {
+            manager.getTransaction().begin();
+            manager.persist(tipo);
+            manager.getTransaction().commit();
+        }
 
-        repository.save(imovel);
+        List<Imovel> imoveis = List.of(
+                new Imovel("01001-000", new BigDecimal("2500.00")),
+                new Imovel("01310-000", new BigDecimal("3800.50")),
+                new Imovel("04538-132", new BigDecimal("5200.75")),
+                new Imovel("20020-001", new BigDecimal("1800.00")),
+                new Imovel("30130-010", new BigDecimal("2200.30")),
+                new Imovel("40210-150", new BigDecimal("1950.90")),
+                new Imovel("50010-000", new BigDecimal("3100.00")),
+                new Imovel("60861-610", new BigDecimal("2750.45")),
+                new Imovel("70040-010", new BigDecimal("4250.80")),
+                new Imovel("80010-100", new BigDecimal("1600.25"))
+        );
 
-        List<Imovel> lista = repository.listAll();
-        assertFalse(lista.isEmpty(), "A lista de imóveis não deveria estar vazia");
+        Long i = 1L;
+        for (Imovel imovel: imoveis) {
+            imovel.setTipoImovel(manager.getReference(TipoImovel.class, i));
+            i++;
+        }
+
+        imoveis.get(0).setProprietario(manager.getReference(Cliente.class, 1L));
+        imoveis.get(1).setProprietario(manager.getReference(Cliente.class, 1L));
+        imoveis.get(2).setProprietario(manager.getReference(Cliente.class, 1L));
+        imoveis.get(5).setProprietario(manager.getReference(Cliente.class, 4L));
+        imoveis.get(6).setProprietario(manager.getReference(Cliente.class, 5L));
+        imoveis.get(7).setProprietario(manager.getReference(Cliente.class, 7L));
+        imoveis.get(8).setProprietario(manager.getReference(Cliente.class, 7L));
+
+        for (Imovel imovel: imoveis) {
+            imovelRepository.save(imovel);
+        }
+
+        List<Imovel> im = imovelRepository.listAll();
+
+        Assertions.assertNotNull(im);
 
         manager.close();
-        repository.close();
         JpaUtil.close();
     }
 
     @Test
-    void testarBuscarPorCep() {
-        ImovelRepository repository = new ImovelRepository();
+    void verificarSeObjetoFoiAtualizado() {
+        EntityManager manager = JpaUtil.getEntityManager();
 
-        List<Imovel> resultado = repository.findByCep("65000-000");
-        assertNotNull(resultado);
+        Imovel imovel = manager.find(Imovel.class, 1);
 
-        repository.close();
+        manager.detach(imovel);
+
+        imovel.setObs("Observação atualizada");
+        Imovel atualizado = imovelRepository.update(imovel);
+
+        Assertions.assertNotNull(atualizado);
+        Assertions.assertEquals("Observação atualizada", atualizado.getObs());
+
+        manager.close();
         JpaUtil.close();
     }
 
     @Test
-    void testarBuscarPorFaixaDePreco() {
-        ImovelRepository repository = new ImovelRepository();
+    void verificarSeRetornaTodos() {
+        EntityManager manager = JpaUtil.getEntityManager();
 
-        List<Imovel> resultado = repository.findByPrecoRange(new BigDecimal("1000.00"), new BigDecimal("2000.00"));
-        assertNotNull(resultado);
+        List<Imovel> todos = imovelRepository.listAll();
 
-        repository.close();
+        Assertions.assertNotNull(todos);
+        Assertions.assertTrue(todos.size() >= 1);
+
+        manager.close();
         JpaUtil.close();
     }
 
     @Test
-    void testarBuscarPorTipo() {
-        ImovelRepository repository = new ImovelRepository();
+    void verificarSeOcorreuBuscaPorCep() {
+        EntityManager manager = JpaUtil.getEntityManager();
 
-        // Passa a descrição do tipo, ex: "Apartamento" ou "Casa"
-        List<Imovel> resultado = repository.findByTipo("Apartamento");
-        assertNotNull(resultado);
+        String cep = "60861-610";
+        List<Imovel> encontrados = imovelRepository.findByCep(cep);
 
-        repository.close();
+        Assertions.assertNotNull(encontrados);
+        Assertions.assertFalse(encontrados.isEmpty());
+        Assertions.assertTrue(encontrados.stream().anyMatch(i -> cep.equals(i.getCep())));
+
+        manager.close();
         JpaUtil.close();
     }
 
     @Test
-    void testarBuscarPorProprietario() {
-        ImovelRepository repository = new ImovelRepository();
+    void verificarSeRetornaDentroDeUmaFaixaDePreco() {
+        EntityManager manager = JpaUtil.getEntityManager();
 
-        // Busca os imóveis do proprietário de ID 1
-        List<Imovel> resultado = repository.findByProprietario(1L);
-        assertNotNull(resultado);
+        List<Imovel> medio = imovelRepository.findByPrecoRange(new BigDecimal("1500.00"), new BigDecimal("3500.00"));
 
-        repository.close();
+        assertNotNull(medio);
+
+        Assertions.assertTrue(medio.stream().anyMatch(i -> i.getValorAluguelSugerido().compareTo(new BigDecimal("1800.00")) == 0));
+        Assertions.assertTrue(medio.stream().anyMatch(i -> i.getValorAluguelSugerido().compareTo(new BigDecimal("3100.00")) == 0));
+
+        manager.close();
+        JpaUtil.close();
+    }
+
+    @Test
+    void verificarSeRetornaPorTipo() {
+        EntityManager manager = JpaUtil.getEntityManager();
+
+        List<Imovel> porTipo = imovelRepository.findByTipo("Casa");
+
+        assertNotNull(porTipo);
+        assertTrue(porTipo.stream().anyMatch(i -> "01310-000".equals(i.getCep())));
+
+        manager.close();
+        JpaUtil.close();
+    }
+
+    @Test
+    void verificarSeRetornaPorProprietario() {
+        EntityManager manager = JpaUtil.getEntityManager();
+
+        List<Imovel> porProp = imovelRepository.findByProprietario(5L);
+
+        assertNotNull(porProp);
+        assertTrue(porProp.stream().anyMatch(i -> "30130-010".equals(i.getCep())));
+
+        manager.close();
         JpaUtil.close();
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class Locacao {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private Boolean ativo;
     private LocalDate dataInicio;
@@ -48,12 +48,33 @@ public class Locacao {
         this.alugueis = alugueis;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public List<Aluguel> getAlugueis() {
+        return alugueis;
+    }
+
+    public void adicionarAluguel(Aluguel aluguel) {
+        this.alugueis.add(aluguel);
+        aluguel.setLocacao(this);
+    }
+
+    public Imovel getImovel() {
+        return imovel;
+    }
+
+    public void setImovel(Imovel imovel) {
+        this.imovel = imovel;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Boolean getAtivo() {

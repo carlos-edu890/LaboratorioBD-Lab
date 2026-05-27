@@ -26,6 +26,13 @@ public class Aluguel {
     public Aluguel() {
     }
 
+    public Aluguel(String obs, BigDecimal valorPago, LocalDate dataVencimento) {
+        this.obs = obs;
+        this.valorPago = valorPago;
+        this.dataVencimento = dataVencimento;
+    }
+
+    public void setLocacao(Locacao locacao) {
     public Aluguel(LocalDate dataVencimento, BigDecimal valorPago, String obs, Locacao locacao) {
         this.dataVencimento = dataVencimento;
         this.valorPago = valorPago;
