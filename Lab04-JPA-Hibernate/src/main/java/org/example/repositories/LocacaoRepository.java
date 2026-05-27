@@ -28,6 +28,7 @@ public class LocacaoRepository {
     }
 
     public List<Locacao> findAtivas() {
+        // No banco o campo é ativo (TINYINT/boolean)
         return this.manager.createQuery("SELECT l FROM Locacao l WHERE l.ativo = true", Locacao.class)
                 .getResultList();
     }
@@ -36,5 +37,12 @@ public class LocacaoRepository {
         return this.manager.createQuery("SELECT l FROM Locacao l WHERE l.inquilino.id = :inquilinoId", Locacao.class)
                 .setParameter("inquilinoId", inquilinoId)
                 .getResultList();
+    }
+}
+
+    public void close() {
+        if (this.manager.isOpen()) {
+            this.manager.close();
+        }
     }
 }

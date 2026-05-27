@@ -38,6 +38,19 @@ public class Imovel {
 
     }
 
+    public Imovel(String endereco, String cep, Integer domitorios, Integer banheiros, Integer suites, Integer metragem, BigDecimal valorAluguelSugerido, String obs, TipoImovel tipoImovel, Cliente proprietario) {
+        this.endereco = endereco;
+        this.cep = cep;
+        this.domitorios = domitorios;
+        this.banheiros = banheiros;
+        this.suites = suites;
+        this.metragem = metragem;
+        this.valorAluguelSugerido = valorAluguelSugerido;
+        this.obs = obs;
+        this.tipoImovel = tipoImovel;
+        this.proprietario = proprietario;
+    }
+
     public Imovel(String cep, BigDecimal valorAluguelSugerido) {
         this.cep = cep;
         this.valorAluguelSugerido = valorAluguelSugerido;

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CompositeType;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
@@ -20,6 +21,7 @@ public class Aluguel {
     @ManyToOne
     @JoinColumn(name = "id_locacao")
     private Locacao locacao;
+    private java.time.Instant Instant;
 
     public Aluguel() {
     }
@@ -31,6 +33,10 @@ public class Aluguel {
     }
 
     public void setLocacao(Locacao locacao) {
+    public Aluguel(LocalDate dataVencimento, BigDecimal valorPago, String obs, Locacao locacao) {
+        this.dataVencimento = dataVencimento;
+        this.valorPago = valorPago;
+        this.obs = obs;
         this.locacao = locacao;
     }
 
@@ -66,5 +72,15 @@ public class Aluguel {
 
     public void setObs(String obs) {
         this.obs = obs;
+    }
+
+    public void setLocacao(Locacao locacao) {
+    }
+
+    public void setDtVencimento(LocalDate of) {
+    }
+
+    public Instant getDtVencimento() {
+        return this.Instant;
     }
 }

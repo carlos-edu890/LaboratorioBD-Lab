@@ -30,14 +30,22 @@ public class Locacao {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "locacao")
-    private List<Aluguel> alugueis = new ArrayList<>();
+    private List<Aluguel> alugueis = new ArrayList<>();;
 
     public Locacao() {
-
     }
 
-    public Locacao(Boolean ativo) {
+    public Locacao(Boolean ativo, LocalDate dataInicio, LocalDate dataFim, Integer diaVencimento, BigDecimal percentualMulta, BigDecimal valorAluguel, String obs, Imovel imovel, Cliente cliente, List<Aluguel> alugueis) {
         this.ativo = ativo;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.diaVencimento = diaVencimento;
+        this.percentualMulta = percentualMulta;
+        this.valorAluguel = valorAluguel;
+        this.obs = obs;
+        this.imovel = imovel;
+        this.cliente = cliente;
+        this.alugueis = alugueis;
     }
 
     public Long getId() {
@@ -128,5 +136,14 @@ public class Locacao {
 
     public void setObs(String obs) {
         this.obs = obs;
+    }
+
+    public void setPercMulta(BigDecimal bigDecimal) {
+    }
+
+    public void setInquilino(Cliente inquilino) {
+    }
+
+    public void setImovel(Imovel imovel) {
     }
 }

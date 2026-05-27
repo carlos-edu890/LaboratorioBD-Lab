@@ -61,3 +61,10 @@ public class ImovelRepository {
                 .getResultList();
     }
 }
+
+    public void close() {
+        if (this.manager.isOpen()) {
+            this.manager.close();
+        }
+    }
+}
