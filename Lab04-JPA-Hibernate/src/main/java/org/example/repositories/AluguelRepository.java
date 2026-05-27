@@ -29,7 +29,7 @@ public class AluguelRepository {
 
     public List<Aluguel> findByLocacaoOrdenado(Long locacaoId) {
         return this.manager.createQuery(
-                        "SELECT a FROM Aluguel a WHERE a.locacao.id = :locacaoId ORDER BY a.dtVencimento DESC", Aluguel.class)
+                        "SELECT a FROM Aluguel a WHERE a.locacao.id = :locacaoId ORDER BY a.dataVencimento DESC", Aluguel.class)
                 .setParameter("locacaoId", locacaoId)
                 .getResultList();
     }

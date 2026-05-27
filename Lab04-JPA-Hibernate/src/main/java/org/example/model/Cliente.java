@@ -23,7 +23,7 @@ public class Cliente {
     @OneToMany(mappedBy = "proprietario")
     private List<Imovel> imoveisProprietario = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "inquilino")
     private List<Locacao> locacoesComoInquilino = new ArrayList<>();
 
     public Cliente() {

@@ -67,9 +67,9 @@ class LocacaoRepositoryTest {
         locacao.setAtivo(false);
         Locacao atualizada = repository.update(locacao);
 
-        assertNotNull(atualizada);
-        assertEquals("Locação atualizada", atualizada.getObs());
-        assertFalse(atualizada.getAtivo());
+        Assertions.assertNotNull(atualizada);
+        Assertions.assertEquals("Locação atualizada", atualizada.getObs());
+        Assertions.assertFalse(atualizada.getAtivo());
 
         manager.close();
         JpaUtil.close();
@@ -81,9 +81,9 @@ class LocacaoRepositoryTest {
 
         List<Locacao> ativas = repository.findAtivas();
 
-        assertNotNull(ativas);
-        assertTrue(ativas.size() >= 2);
-        assertTrue(ativas.stream().allMatch(l -> l.getAtivo().equals(true)));
+        Assertions.assertNotNull(ativas);
+        Assertions.assertTrue(ativas.size() >= 2);
+        Assertions.assertTrue(ativas.stream().allMatch(l -> l.getAtivo().equals(true)));
 
         manager.close();
         JpaUtil.close();
@@ -95,8 +95,8 @@ class LocacaoRepositoryTest {
 
         List<Locacao> locacoesPorInquilino = repository.findByInquilino(2L);
 
-        assertNotNull(locacoesPorInquilino);
-        assertTrue(locacoesPorInquilino.stream()
+        Assertions.assertNotNull(locacoesPorInquilino);
+        Assertions.assertTrue(locacoesPorInquilino.stream()
                 .anyMatch(l -> l.getCliente().getId().longValue() == 2L));
 
         manager.close();

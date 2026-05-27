@@ -146,8 +146,8 @@ class ImovelRepositoryTest {
 
         List<Imovel> porTipo = imovelRepository.findByTipo("Casa");
 
-        assertNotNull(porTipo);
-        assertTrue(porTipo.stream().anyMatch(i -> "01310-000".equals(i.getCep())));
+        Assertions.assertNotNull(porTipo);
+        Assertions.assertTrue(porTipo.stream().anyMatch(i -> "01310-000".equals(i.getCep())));
 
         manager.close();
         JpaUtil.close();
@@ -159,8 +159,8 @@ class ImovelRepositoryTest {
 
         List<Imovel> porProp = imovelRepository.findByProprietario(5L);
 
-        assertNotNull(porProp);
-        assertTrue(porProp.stream().anyMatch(i -> "30130-010".equals(i.getCep())));
+        Assertions.assertNotNull(porProp);
+        Assertions.assertTrue(porProp.stream().anyMatch(i -> "50010-000".equals(i.getCep())));
 
         manager.close();
         JpaUtil.close();

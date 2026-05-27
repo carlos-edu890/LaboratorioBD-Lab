@@ -27,7 +27,7 @@ public class Locacao {
     private Imovel imovel;
 
     @ManyToOne @JoinColumn(name = "id_inquilino")
-    private Cliente cliente;
+    private Cliente inquilino;
 
     @OneToMany(mappedBy = "locacao")
     private List<Aluguel> alugueis = new ArrayList<>();
@@ -62,11 +62,11 @@ public class Locacao {
     }
 
     public Cliente getCliente() {
-        return cliente;
+        return inquilino;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCliente(Cliente inquilino) {
+        this.inquilino = inquilino;
     }
 
     public Boolean getAtivo() {

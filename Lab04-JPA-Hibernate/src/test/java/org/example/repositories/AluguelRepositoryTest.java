@@ -86,7 +86,7 @@ class AluguelRepositoryTest {
         Assertions.assertEquals(4, alugueis.size());
 
         Assertions.assertTrue(alugueis.get(0).getDataVencimento().compareTo(alugueis.get(1).getDataVencimento()) >= 0);
-        Assertions.assertTrue(alugueis.get(1).getDataVencimento().compareTo(alugueis.get(2).getDataVencimento()) >= 0);;
+        Assertions.assertTrue(alugueis.get(1).getDataVencimento().compareTo(alugueis.get(2).getDataVencimento()) >= 0);
 
         manager.close();
         JpaUtil.close();

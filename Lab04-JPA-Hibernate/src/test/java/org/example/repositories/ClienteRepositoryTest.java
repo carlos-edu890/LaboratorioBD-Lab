@@ -39,10 +39,10 @@ class ClienteRepositoryTest {
 
         manager.close();
 
-        assertNotNull(c1, "Cliente deveria ter sido salvo no banco");
-        assertEquals("Ana Silva", c1.getNome());
-        assertEquals("123.456.789-00", c1.getCpf());
-        assertEquals("ana.silva@email.com", c1.getEmail());
+        Assertions.assertNotNull(c1, "Cliente deveria ter sido salvo no banco");
+        Assertions.assertEquals("Ana Silva", c1.getNome());
+        Assertions.assertEquals("123.456.789-00", c1.getCpf());
+        Assertions.assertEquals("ana.silva@email.com", c1.getEmail());
 
         JpaUtil.close();
     }
@@ -60,7 +60,7 @@ class ClienteRepositoryTest {
 
         Cliente c1 = repository.update(c);
 
-        assertEquals("Bruno", c1.getNome());
+        Assertions.assertEquals("Bruno", c1.getNome());
 
         manager.close();
         JpaUtil.close();
@@ -74,7 +74,7 @@ class ClienteRepositoryTest {
 
         Cliente c = repository.getCliente("carlos.oliveira@email.com");
 
-        assertNotNull(c, "Cliente deveria ter sido encontrado no banco");
+        Assertions.assertNotNull(c, "Cliente deveria ter sido encontrado no banco");
 
         manager.close();
         JpaUtil.close();
@@ -88,7 +88,7 @@ class ClienteRepositoryTest {
 
         Cliente c = repository.getCliente("345.678.901-22");
 
-        assertNotNull(c, "Cliente deveria ter sido encontrado no banco");
+        Assertions.assertNotNull(c, "Cliente deveria ter sido encontrado no banco");
 
         manager.close();
         JpaUtil.close();
