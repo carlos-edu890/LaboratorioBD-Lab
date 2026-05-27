@@ -18,7 +18,7 @@ class AluguelRepositoryTest {
     private AluguelRepository repository = new AluguelRepository();
 
     @Test
-    void save() {
+    void testarSeObjetoFoiPersistido() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         List<Aluguel> alugueis = List.of(
@@ -55,7 +55,7 @@ class AluguelRepositoryTest {
     }
 
     @Test
-    void update() {
+    void testarSeObjetoFoiAtualizado() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         Aluguel aluguel = manager.find(Aluguel.class, 1L);
@@ -75,7 +75,7 @@ class AluguelRepositoryTest {
     }
 
     @Test
-    void findByLocacaoOrdenado() {
+    void testarSeRetornaOrdenado() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         List<Aluguel> alugueis = repository.findByLocacaoOrdenado(1L);

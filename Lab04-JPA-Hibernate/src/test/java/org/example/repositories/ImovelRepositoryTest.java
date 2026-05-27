@@ -19,7 +19,7 @@ class ImovelRepositoryTest {
     private ImovelRepository imovelRepository = new ImovelRepository();
 
     @Test
-    void save() {
+    void objetoFoiAdicionado() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         List<TipoImovel> tipoImovels = List.of(
@@ -80,7 +80,7 @@ class ImovelRepositoryTest {
     }
 
     @Test
-    void update() {
+    void verificarSeObjetoFoiAtualizado() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         Imovel imovel = manager.find(Imovel.class, 1);
@@ -98,7 +98,7 @@ class ImovelRepositoryTest {
     }
 
     @Test
-    void listAll() {
+    void verificarSeRetornaTodos() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         List<Imovel> todos = imovelRepository.listAll();
@@ -111,7 +111,7 @@ class ImovelRepositoryTest {
     }
 
     @Test
-    void findByCep() {
+    void verificarSeOcorreuBuscaPorCep() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         String cep = "60861-610";
@@ -126,7 +126,7 @@ class ImovelRepositoryTest {
     }
 
     @Test
-    void findByPrecoRange() {
+    void verificarSeRetornaDentroDeUmaFaixaDePreco() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         List<Imovel> medio = imovelRepository.findByPrecoRange(new BigDecimal("1500.00"), new BigDecimal("3500.00"));
@@ -141,7 +141,7 @@ class ImovelRepositoryTest {
     }
 
     @Test
-    void findByTipo() {
+    void verificarSeRetornaPorTipo() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         List<Imovel> porTipo = imovelRepository.findByTipo("Casa");
@@ -154,7 +154,7 @@ class ImovelRepositoryTest {
     }
 
     @Test
-    void findByProprietario() {
+    void verificarSeRetornaPorProprietario() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         List<Imovel> porProp = imovelRepository.findByProprietario(5L);

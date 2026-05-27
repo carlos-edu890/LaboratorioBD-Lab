@@ -16,7 +16,7 @@ class LocacaoRepositoryTest {
     private LocacaoRepository repository = new LocacaoRepository();
 
     @Test
-    void save() {
+    void testarSeObjetoFoiPersistido() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         List<Locacao> locacaos = List.of(
@@ -56,7 +56,7 @@ class LocacaoRepositoryTest {
     }
 
     @Test
-    void update() {
+    void testarSeObjetoFoiAtualizado() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         Locacao locacao = manager.find(Locacao.class, 1L);
@@ -76,7 +76,7 @@ class LocacaoRepositoryTest {
     }
 
     @Test
-    void findAtivas() {
+    void testarSeRetornaPorAtivas() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         List<Locacao> ativas = repository.findAtivas();
@@ -90,7 +90,7 @@ class LocacaoRepositoryTest {
     }
 
     @Test
-    void findByInquilino() {
+    void testarSeRetornaPorInquilino() {
         EntityManager manager = JpaUtil.getEntityManager();
 
         List<Locacao> locacoesPorInquilino = repository.findByInquilino(2L);
