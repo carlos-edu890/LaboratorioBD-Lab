@@ -17,5 +17,11 @@ public class ItemFrete {
     private Integer id;
 
     private String descricao;
+
+    @Column(name = "peso", columnDefinition = "DECIMAL(10,2) NOT NULL")
     private float peso;
+
+    @ManyToOne
+    @JoinColumn(name = "frete_id")
+    private Frete frete;
 }

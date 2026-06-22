@@ -15,9 +15,11 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Distancia {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private int quilometros;
+
+    @Column(precision = 10, scale = 2)
     private BigDecimal adicionalkmRodado;
 
     @ManyToOne

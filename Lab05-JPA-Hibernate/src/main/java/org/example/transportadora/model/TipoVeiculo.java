@@ -19,5 +19,7 @@ public class TipoVeiculo {
     private Integer id;
 
     private String descricao;
+
+    @Column(name = "peso_maximo", columnDefinition = "DECIMAL(10,2) NULL DEFAULT NULL")
     private Float pesoMaximo;
 }

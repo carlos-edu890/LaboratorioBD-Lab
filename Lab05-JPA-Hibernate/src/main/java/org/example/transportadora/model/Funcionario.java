@@ -22,6 +22,7 @@ public class Funcionario extends PessoaFisica {
     private String cargo;
 
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinColumn(name = "funcionario_id")
     private List<Dependente> dependentes;
 
     @ManyToOne

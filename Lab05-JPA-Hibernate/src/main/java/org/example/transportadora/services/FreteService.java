@@ -84,9 +84,6 @@ public class FreteService {
         if (frete == null) {
             throw new NegocioException("O objeto frete não pode ser nulo.");
         }
-        if (frete.getVeiculo() == null && frete.getVeiculo().getFilial() == null) {
-            throw new NegocioException("O veículo associado ao frete deve ser válido e estar associado a uma filial.");
-        }
         if (frete.getCliente() == null) {
             throw new NegocioException("O cliente é obrigatório para registrar o frete.");
         }

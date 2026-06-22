@@ -20,4 +20,8 @@ public class Dependente {
 
     private String nome;
     private LocalDate dataNascimento;
+
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id")
+    private Funcionario funcionario;
 }

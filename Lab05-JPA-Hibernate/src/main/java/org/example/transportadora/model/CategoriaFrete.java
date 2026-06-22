@@ -1,9 +1,6 @@
 package org.example.transportadora.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +18,7 @@ public class CategoriaFrete {
 
     private String nome;
     private String descricao;
+
+    @Column(name = "percentual_adicional", columnDefinition = "DECIMAL(10,2) NULL DEFAULT NULL")
     private Float percentualAdicional;
 }

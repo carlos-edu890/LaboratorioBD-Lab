@@ -21,10 +21,11 @@ public class Frete {
 
     private int codigo;
     private int numeroNotaFiscal;
+
+    @Column(precision = 10, scale = 2)
     private BigDecimal valorKmRodado;
 
-    @ManyToOne
-    @JoinColumn(name = "status_frete_id")
+    @Enumerated(EnumType.STRING)
     private StatusFrete statusFrete;
 
     @ManyToOne
@@ -48,7 +49,6 @@ public class Frete {
     private CategoriaFrete categoriaFrete;
 
     @OneToMany(mappedBy = "frete", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "frete_id")
     private List<ItemFrete> itensFrete;
 
     public BigDecimal calcularFrete(int quilometros) {
